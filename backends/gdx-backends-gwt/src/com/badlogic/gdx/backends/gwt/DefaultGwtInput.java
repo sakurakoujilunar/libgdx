@@ -150,6 +150,11 @@ public class DefaultGwtInput extends AbstractInput implements GwtInput {
 		return this.accelerometer != null ? (float)this.accelerometer.z() : 0;
 	}
 
+	@Override
+	public float getLight() {
+		return 0;
+	}
+
 	private boolean isAccelerometerPresent () {
 		return getAccelerometerX() != 0 || getAccelerometerY() != 0 || getAccelerometerZ() != 0;
 	}

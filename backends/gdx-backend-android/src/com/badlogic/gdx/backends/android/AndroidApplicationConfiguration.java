@@ -41,6 +41,9 @@ public class AndroidApplicationConfiguration {
 	/** whether to use the accelerometer. default: true **/
 	public boolean useAccelerometer = true;
 
+	/** whether to use the light sensor. default: true **/
+	public boolean useLight = true;
+
 	/** whether to use the gyroscope. default: false **/
 	public boolean useGyroscope = false;
 

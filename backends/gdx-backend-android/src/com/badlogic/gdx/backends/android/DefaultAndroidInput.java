@@ -123,6 +123,8 @@ public class DefaultAndroidInput extends AbstractInput implements AndroidInput, 
 	private SensorManager manager;
 	public boolean accelerometerAvailable = false;
 	protected final float[] accelerometerValues = new float[3];
+	public boolean lightAvailable = true;
+	public float[] lightValues = new float[1];
 	public boolean gyroscopeAvailable = false;
 	protected final float[] gyroscopeValues = new float[3];
 	private Handler handle;
@@ -146,6 +148,7 @@ public class DefaultAndroidInput extends AbstractInput implements AndroidInput, 
 	private long currentEventTimeStamp = 0;
 
 	private SensorEventListener accelerometerListener;
+	private SensorEventListener lightListener;
 	private SensorEventListener gyroscopeListener;
 	private SensorEventListener compassListener;
 	private SensorEventListener rotationVectorListener;
@@ -213,6 +216,11 @@ public class DefaultAndroidInput extends AbstractInput implements AndroidInput, 
 	@Override
 	public float getAccelerometerZ () {
 		return accelerometerValues[2];
+	}
+
+	@Override
+	public float getLight() {
+		return lightValues[0];
 	}
 
 	@Override
@@ -1179,6 +1187,17 @@ public class DefaultAndroidInput extends AbstractInput implements AndroidInput, 
 		} else
 			accelerometerAvailable = false;
 
+		if (config.useLight){
+			manager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
+			if (manager.getSensorList(Sensor.TYPE_LIGHT).isEmpty()) {
+				lightAvailable = false;
+			} else {
+				Sensor light = manager.getSensorList(Sensor.TYPE_LIGHT).get(0);
+				lightListener = new SensorListener();
+				lightAvailable = manager.registerListener(lightListener, light, config.sensorDelay);
+			}
+		}
+
 		if (config.useGyroscope) {
 			manager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
 			if (manager.getSensorList(Sensor.TYPE_GYROSCOPE).isEmpty()) {
@@ -1231,6 +1250,10 @@ public class DefaultAndroidInput extends AbstractInput implements AndroidInput, 
 				manager.unregisterListener(accelerometerListener);
 				accelerometerListener = null;
 			}
+			if (lightListener != null) {
+				manager.unregisterListener(lightListener);
+				lightListener = null;
+			}
 			if (gyroscopeListener != null) {
 				manager.unregisterListener(gyroscopeListener);
 				gyroscopeListener = null;
@@ -1256,6 +1279,7 @@ public class DefaultAndroidInput extends AbstractInput implements AndroidInput, 
 	@Override
 	public boolean isPeripheralAvailable (Peripheral peripheral) {
 		if (peripheral == Peripheral.Accelerometer) return accelerometerAvailable;
+		if (peripheral == Peripheral.Light) return lightAvailable;
 		if (peripheral == Peripheral.Gyroscope) return gyroscopeAvailable;
 		if (peripheral == Peripheral.Compass) return compassAvailable;
 		if (peripheral == Peripheral.HardwareKeyboard) return keyboardAvailable;
@@ -1446,6 +1470,13 @@ public class DefaultAndroidInput extends AbstractInput implements AndroidInput, 
 					accelerometerValues[0] = event.values[1];
 					accelerometerValues[1] = -event.values[0];
 					accelerometerValues[2] = event.values[2];
+				}
+			}
+			if (event.sensor.getType() == Sensor.TYPE_LIGHT) {
+				if (nativeOrientation == Orientation.Portrait) {
+					System.arraycopy(event.values, 0, lightValues, 0, lightValues.length);
+				} else {
+					lightValues[0] = event.values[0];
 				}
 			}
 			if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {

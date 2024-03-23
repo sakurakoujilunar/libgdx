@@ -81,6 +81,11 @@ final public class DefaultLwjglInput extends AbstractInput implements LwjglInput
 	}
 
 	@Override
+	public float getLight() {
+		return 0;
+	}
+
+	@Override
 	public float getGyroscopeX () {
 		return 0;
 	}
