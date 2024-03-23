@@ -159,11 +159,6 @@ public class LwjglAWTInput extends AbstractInput implements MouseMotionListener,
 	}
 
 	@Override
-	public float getLight() {
-		return 0;
-	}
-
-	@Override
 	public void getTextInput (TextInputListener listener, String title, String text, String hint) {
 		getTextInput(listener, title, text, hint, OnscreenKeyboardType.Default);
 	}

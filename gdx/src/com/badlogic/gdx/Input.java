@@ -643,7 +643,7 @@ public interface Input {
 	/** Enumeration of potentially available peripherals. Use with {@link Input#isPeripheralAvailable(Peripheral)}.
 	 * @author mzechner */
 	public enum Peripheral {
-		HardwareKeyboard, OnscreenKeyboard, MultitouchScreen, Accelerometer, Compass, Vibrator, HapticFeedback, Gyroscope, RotationVector, Pressure, Light
+		HardwareKeyboard, OnscreenKeyboard, MultitouchScreen, Accelerometer, Compass, Vibrator, HapticFeedback, Gyroscope, RotationVector, Pressure
 	}
 
 	/** @return The acceleration force in m/s^2 applied to the device in the X axis, including the force of gravity */
@@ -654,9 +654,6 @@ public interface Input {
 
 	/** @return The acceleration force in m/s^2 applied to the device in the Z axis, including the force of gravity */
 	public float getAccelerometerZ ();
-
-	/** @return The the light intensity in lux around the device */
-	public float getLight ();
 
 	/** @return The rate of rotation in rad/s around the X axis */
 	public float getGyroscopeX ();

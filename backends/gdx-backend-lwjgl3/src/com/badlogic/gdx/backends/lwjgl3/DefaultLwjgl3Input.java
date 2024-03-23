@@ -637,11 +637,6 @@ public class DefaultLwjgl3Input extends AbstractInput implements Lwjgl3Input {
 	}
 
 	@Override
-	public float getLight() {
-		return 0;
-	}
-
-	@Override
 	public boolean isPeripheralAvailable (Peripheral peripheral) {
 		return peripheral == Peripheral.HardwareKeyboard;
 	}

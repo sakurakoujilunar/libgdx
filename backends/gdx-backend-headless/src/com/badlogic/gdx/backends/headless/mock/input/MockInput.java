@@ -41,11 +41,6 @@ public class MockInput implements Input {
 	}
 
 	@Override
-	public float getLight() {
-		return 0;
-	}
-
-	@Override
 	public float getGyroscopeX () {
 		return 0;
 	}

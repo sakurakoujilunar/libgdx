@@ -258,11 +258,6 @@ public class DefaultIOSInput extends AbstractInput implements IOSInput {
 	}
 
 	@Override
-	public float getLight() {
-		return 0;
-	}
-
-	@Override
 	public float getAzimuth () {
 		if (!compassSupported) return 0;
 		return rotation[0];

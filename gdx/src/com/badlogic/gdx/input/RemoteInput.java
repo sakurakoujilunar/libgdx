@@ -348,11 +348,6 @@ public class RemoteInput implements Runnable, Input {
 	}
 
 	@Override
-	public float getLight() {
-		return 0;
-	}
-
-	@Override
 	public float getGyroscopeX () {
 		return gyrate[0];
 	}

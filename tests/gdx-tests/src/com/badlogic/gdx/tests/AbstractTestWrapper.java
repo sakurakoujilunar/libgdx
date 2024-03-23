@@ -176,11 +176,6 @@ public abstract class AbstractTestWrapper extends GdxTest {
 		}
 
 		@Override
-		public float getLight() {
-			return input.getLight();
-		}
-
-		@Override
 		public float getGyroscopeX () {
 			return input.getGyroscopeX();
 		}
